@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>
+<script type="text/jsx">
+    class NameForm extends React.Component {
+        constructor(props){
+            super(props)
+            this.state = {value:''}
+            //绑定函数内的this,将它指向组件本身
+            this.handleChange = this.handleChange.bind(this)
+            this.handleSubmit = this.handleSubmit.bind(this)
+        }
+        handleChange(event){
+            this.setState({value:event.target.value});
+        }
+        handleSubmit(event){
+            alert('A name was submitted:' + this.state.value);
+            event.preventDefault()
+        }
+        render(){
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Name:
+                        <input type="text" value={this.state.value} onChange={this.handleChange}/>
+                    </label>
+                    <input type="submit" value="submit"/>
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(<NameForm/>,document.querySelector('#root'))
+</script>

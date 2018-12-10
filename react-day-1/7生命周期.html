@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>
+<script type="text/jsx">
+    //在react中创建一个组件的话，最好的方式就是创建一个继承与react.component的类
+    //创建 一个时钟的组件，使用类的方式创建
+    class Clock extends React.Component {
+        //类构造函数，是在类进行实例化的时候自动会调用的函数
+        //一般都是做一些初始化的操作，例如说创建数据
+        constructor(props){
+            //先执行React.Component的构造函数
+            //类组件应该始终使用props调用React.Component的构造函数
+            //props是传递给React.Component的数据
+            super(props);
+            //创建一个类自身的变量，this.state.date将当前时间赋值
+            //构造函数是唯一能够初始化this.state的地方。
+            this.state = {date:new Date()}
+        }
+        //当组件输出到DOM的时候会执行的生命周期钩子
+        componentDidMount(){
+            //建立定时器
+            this.timeID = setInterval(()=>{
+                this.tick()
+            },1000)
+        }
+        //在生命周期组件卸载的时候调用的钩子函数
+        componentWillUnmonut(){
+            clearInterval(this.timeID);
+        }
+        tick(){
+            //使用setState去改变state的值，不能直接去改变。
+            this.setState({
+                date:new Date()
+            })
+        }
+        //创建一个叫做render的空方法
+        render(){
+            //具有jsx语法规则的react元素
+            return (
+                <div>
+                    <h1>Hello,world!!</h1>
+                    <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+                </div>
+            )
+        }
+    }
+    //将这个组件扔到页面中去
+    ReactDOM.render(<Clock/>,document.querySelector('#root'));
+</script>

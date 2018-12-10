@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>
+<script type="text/jsx">
+    //创建welcome组件
+    function Welcome(props){
+        //props是一个只读属性，只能读取，不能写入
+        //props.name = 'test';
+        return <h1>Hello,{props.name}</h1>
+    }
+    //创建App组件
+    //组件的内容必须有一个根元素
+    function App(){
+        return (
+            <div>
+                <Welcome name="Sara"/>
+                <Welcome name="Cahal"/>
+                <Welcome name="edite"/>
+            </div>
+        )
+    }
+    ReactDOM.render(<App/>,document.querySelector("#root"))
+</script>

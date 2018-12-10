@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>
+<script type="text/jsx">
+    class Toggle extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {isToggleOn:true}
+            //将handleClick里面的this绑定到toggle上
+            //this.handleClick = this.handleClick.bind(this)
+        }
+        //这个是组件事件处理函数，我们一般会写在class类里面，作为一个普通的方法存在
+        /*handleClick(){
+           this.setState(prevState=>({
+               isToggleOn: !prevState.isToggleOn
+           }))
+        }*/
+        handleClick = (str,e)=>{
+            //得到从事件处理函数中拿到的参数test
+            console.log(str);
+            this.setState(prevState=>({
+                isToggleOn: !prevState.isToggleOn
+            }))
+        }
+        //调用的时候，通过onClick={this.事件处理函数}
+        render(){
+            return (
+                <button onClick={(e)=> this.handleClick('test',e)}>
+                    {this.state.isToggleOn ? 'ON' : 'OFF'}
+                </button>
+            )
+        }
+    }
+    ReactDOM.render(<Toggle/>,document.querySelector('#root'))
+</script>

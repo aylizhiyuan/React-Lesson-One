@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>
+<script type="text/jsx">
+    //先定义一个组件，这个组件会输出一个无序列表
+    function NumberList(props){
+        const numbers = props.numbers;
+        //列表循环输出的时候，必须加上key值，以防止重复渲染...
+        const listItems = numbers.map((number)=>
+            <li key={number.toString()}>{number}</li>
+        )
+        return (
+            <ul>{listItems}</ul>
+        )
+    }
+    const numbers = [1,2,3,4,5];
+    ReactDOM.render(<NumberList numbers={numbers}/>,document.querySelector("#root"));
+</script>
